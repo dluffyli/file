@@ -1,0 +1,668 @@
+一、java 基础
+基础篇
+基本功
+面向对象的特征：封装、继承、多态和抽象
+1、封装
+	 封装给对象提供了隐藏内部特性和行为的能力。对象提供一些能被其他对象访问的方法来改
+变它内部的数据。在 Java 当中，有 3 种修饰符： public， private 和 protected。每一种修饰符
+给其他的位于同一个包或者不同包下面对象赋予了不同的访问权限。
+	 下面列出了使用封装的一些好处：
+	 通过隐藏对象的属性来保护对象内部的状态。
+	 提高了代码的可用性和可维护性，因为对象的行为可以被单独的改变或者是扩展。
+	 禁止对象之间的不良交互提高模块化。
+	 
+2、继承
+	 继承给对象提供了从基类获取字段和方法的能力。继承提供了代码的重用行，也可以在不修改类的情况下给现存的类添加新特性。
+
+3、多态
+   多态是编程语言给不同的底层数据类型做相同的接口展示的一种能力。一个多态类型上的操作可以应用到其他类型的值上面。
+
+4、抽象
+	 抽象是把想法从具体的实例中分离出来的步骤，因此，要根据他们的功能而不是实现细节来创建类。
+	 Java 支持创建只暴漏接口而不包含方法实现的抽象的类。
+	 这种抽象技术的主要目的是把类的行为和实现细节分离开。 
+	 
+final finally 和finalize的区别
+
+		final:修饰符（关键字）如果一个类被声明为final，意味着它不能再派生出新的子类，不能作为父类被继承。
+		因此一个类不能既被声明为 abstract的，又被声明为final的。
+		将变量或方法声明为final，可以保证它们在使用中不被改变。
+		被声明为final的变量必须在声明时给定初值，而在以后的引用中只能读取，不可修改。
+		被声明为final的方法也同样只能使用，不能重载。
+		
+		finally:在异常处理时提供 finally 块来执行任何清除操作。
+		如果抛出一个异常，那么相匹配的 catch 子句就会执行，然后控制就会进入 finally 块（如果有的话）
+		
+		finalize:方法名，Java 技术允许使用 finalize() 方法在垃圾收集器将对象从内存中清除出去之前做必要的清理工作。
+		这个方法是由垃圾收集器在确定这个对象没有被引用时对这个对象调用的。
+		它是在 Object 类中定义的，因此所有的类都继承了它。
+		子类覆盖 finalize() 方法以整理系统资源或者执行其他清理工作。
+		finalize() 方法是在垃圾收集器删除对象之前对这个对象调用的。
+		
+int Integer的区别
+
+		int 是基本数据类型，Integer是包装类，注意是包装类。
+		为什么要提供包装类呢？
+		一是为了在各种类型间转化，通过各种方法的调用。否则 你无法直接通过变量转化。
+		再举例下。比如我现在要用泛型
+		这里<>需要类。如果你用int。它会报错的。
+		
+重写和重载的区别
+
+		override（重写）
+		1. 方法名、参数、返回值相同。
+    2. 子类方法不能缩小父类方法的访问权限。
+    3. 子类方法不能抛出比父类方法更多的异常(但子类方法可以不抛出异常)。
+    4. 存在于父类和子类之间。
+    5. 方法被定义为final不能被重写。
+    
+    overload（重载）
+		1. 参数类型、个数、顺序至少有一个不相同。
+		2. 不能重载只有返回值不同的方法名。
+		3. 存在于父类和子类、同类中。
+
+抽象类和接口有什么区别
+	
+		接口是公开的，里面不能有私有的方法或变量，是用于让别人使用的，而抽象类是可以有私有方法或私有变量的，
+		另外，实现接口的一定要实现接口里定义的所有方法，而实现抽象类可以有选择地重写需要用到的方法，
+		一般的应用里，最顶级的是接口，然后是抽象类实现接口，最后才到具体类实现。
+		还有，接口可以实现多重继承，而一个类只能继承一个超类，但可以通过继承多个接口实现多重继承，
+		接口还有标识（里面没有任何方法，如Remote接口）和数据共享（里面的变量全是常量）的作用。
+		
+说说反射的用途及实现
+
+		Java反射机制主要提供了以下功能：在运行时构造一个类的对象；
+		判断一个类所具有的成员变量和方法；
+		调用一个对象的方法；
+		生成动态代理。
+		反射最大的应用就是框架
+
+Java反射的主要功能：
+
+    确定一个对象的类
+    取出类的modifiers,数据成员,方法,构造器,和超类.
+    找出某个接口里定义的常量和方法说明.
+    创建一个类实例,这个实例在运行时刻才有名字(运行时间才生成的对象).
+    取得和设定对象数据成员的值,如果数据成员名是运行时刻确定的也能做到.
+    在运行时刻调用动态对象的方法.
+    创建数组,数组大小和类型在运行时刻才确定,也能更改数组成员的值.
+
+反射的应用很多，很多框架都有用到
+
+		spring 的 ioc/di 也是反射….
+		javaBean和jsp之间调用也是反射….
+		struts的 FormBean 和页面之间…也是通过反射调用….
+		JDBC 的 classForName()也是反射…..
+		hibernate的 find(Class clazz) 也是反射….
+
+说说自定义注解的场景及实现
+
+		登陆、权限拦截、日志处理，以及各种Java框架，如Spring，Hibernate，JUnit 提到注解就不能不说反射，
+		Java自定义注解是通过运行时靠反射获取注解。
+		实际开发中，例如我们要获取某个方法的调用日志，可以通过AOP（动态代理机制）给方法添加切面，通过反射来获取方法包含的注解，
+		如果包含日志注解，就进行日志记录。
+		
+HTTP get 和 post方式的区别
+
+		GET方法会把名值对追加在请求的URL后面。因为URL对字符数目有限制，进而限制了用在客户端请求的参数值的数目。
+		并且请求中的参数值是可见的，因此，敏感信息不能用这种方式传递。
+
+		POST方法通过把请求参数值放在请求体中来克服GET方法的限制，因此，可以发送的参数的数目是没有限制的。
+		最后，通过POST请求传递的敏感信息对外部客户端是不可见的。
+		
+session 与 cookie的区别
+		
+		cookie数据存放在客户的浏览器上，session数据放在服务器上。
+		cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗考虑到安全应当使用session。
+		session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能考虑到减轻服务器性能方面，应当使用COOKIE。
+		单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。
+		
+		所以个人建议：
+    将登陆信息等重要信息存放为SESSION
+    其他信息如果需要保留，可以放在COOKIE中
+    
+JDBC流程
+
+		1.在连接数据库之前，首先要加载想要连接的数据库的驱动到JVM（Java虚拟机），
+		这通过java.lang.Class类的静态方法forName(String className)实现。
+		成功加载后，会将Driver类的实例注册到DriverManager类中。
+		2.提供JDBC连接的URL
+		3.创建数据库的连接
+		4.创建一个Statement
+		5.执行sql语句
+		6.处理结果
+		7.关闭JDBC对象
+		
+MVC 设计思想
+
+		MVC就是
+		M:Model 模型
+		V:View 视图
+		C:Controller 控制器
+		模型就是封装业务逻辑和数据的一个一个的模块,
+		控制器就是调用这些模块的(java中通常是用Servlet来实现,框架的话很多是用Struts2来实现这一层),
+		视图就主要是你看到的,比如JSP等.
+		当用户发出请求的时候,控制器根据请求来选择要处理的业务逻辑和要选择的数据,
+		再返回去把结果输出到视图层,这里可能是进行重定向或转发等.
+		
+equals 与 == 的区别
+
+		值类型（int,char,long,boolean等）都是用==判断相等性。
+		对象引用的话，==判断引用所指的对象是否是同一个。
+		equals是Object的成员函数，有些类会覆盖（override）这个方法，用于判断对象的等价性。
+		例如String类，两个引用所指向的String都是”abc”，但可能出现他们实际对应的对象并不是同一个（和jvm实现方式有关），
+		因此用==判断他们可能不相等，但用equals判断一定是相等的。
+		
+集合
+
+		List 和 Set 区别
+	
+		List,Set都是继承自Collection接口
+		List特点：元素有放入顺序，元素可重复
+		Set特点：元素无放入顺序，元素不可重复，重复元素会覆盖掉
+ 	 （注意：元素虽然无放入顺序，但是元素在set中的位置是有该元素的HashCode决定的，
+ 		其位置其实是固定的，加入Set 的Object必须定义equals()方法 ，
+ 		另外list支持for循环，也就是通过下标来遍历，也可以用迭代器，
+ 		但是set只能用迭代，因为他无序，无法用下标来取得想要的值。）
+
+		Set和List对比：
+		
+		Set：检索元素效率低下，删除和插入效率高，插入和删除不会引起元素位置改变。
+		List：和数组类似，List可以动态增长，查找元素效率高，插入删除元素效率低，因为会引起其他元素位置改变。
+
+		List 和 Map 区别
+		
+		List是对象集合，允许对象重复。
+		Map是键值对的集合，不允许key重复。
+		
+		
+		Arraylist 与 LinkedList 区别
+
+		Arraylist：
+
+		优点：ArrayList是实现了基于动态数组的数据结构,因为地址连续，一旦数据存储好了，查询操作效率会比较高（在内存里是连着放的）。
+		缺点：因为地址连续， ArrayList要移动数据,所以插入和删除操作效率比较低。
+
+		LinkedList：
+		
+		优点：LinkedList基于链表的数据结构,地址是任意的，所以在开辟内存空间的时候不需要等一个连续的地址，
+		对于新增和删除操作add和remove，LinedList比较占优势。
+		LinkedList 适用于要头尾操作或插入指定位置的场景
+		缺点：因为LinkedList要移动指针,所以查询操作性能比较低。
+		
+		ArrayList 与 Vector 区别
+
+		ArrayList和Vector都是用数组实现的，主要有这么三个区别：
+
+    Vector是多线程安全的，线程安全就是说多线程访问同一代码，不会产生不确定的结果。而ArrayList不是，这个可以从源码中看出，
+    Vector类中的方法很多有synchronized进行修饰，这样就导致了Vector在效率上无法与ArrayList相比；
+    两个都是采用的线性连续空间存储元素，但是当空间不足的时候，两个类的增加方式是不同。
+    Vector可以设置增长因子，而ArrayList不可以。
+    Vector是一种老的动态数组，是线程同步的，效率很低，一般不赞成使用。
+
+		适用场景分析：
+
+    Vector是线程同步的，所以它也是线程安全的，而ArrayList是线程异步的，是不安全的。
+    如果不考虑到线程的安全因素，一般用ArrayList效率比较高。
+    如果集合中的元素的数目大于目前集合数组的长度时，在集合中使用数据量比较大的数据，用Vector有一定的优势。
+    
+HashMap 和 Hashtable 的区别
+
+		1.hashMap去掉了HashTable 的contains方法，但是加上了containsValue（）和containsKey（）方法。
+		2.hashTable同步的，而HashMap是非同步的，效率上逼hashTable要高。
+		3.hashMap允许空键值，而hashTable不允许。
+
+		注意：
+		TreeMap：非线程安全基于红黑树实现。TreeMap没有调优选项，因为该树总处于平衡状态。
+		Treemap：适用于按自然顺序或自定义顺序遍历键(key)。
+		
+HashSet 和 HashMap 区别
+
+		set是线性结构，set中的值不能重复，hashset是set的hash实现，hashset中值不能重复是用hashmap的key来实现的。
+		map是键值对映射，可以空键空值。HashMap是Map接口的hash实现，key的唯一性是通过key值hash值的唯一来确定，value值是则是链表结构。
+		他们的共同点都是hash算法实现的唯一性，他们都不能持有基本类型，只能持有对象
+
+HashMap 和 ConcurrentHashMap 的区别
+
+		ConcurrentHashMap是线程安全的HashMap的实现。
+
+	 （1）ConcurrentHashMap对整个桶数组进行了分割分段(Segment)，然后在每一个分段上都用lock锁进行保护，
+	      相对于HashTable的syn关键字锁的粒度更精细了一些，并发性能更好，而HashMap没有锁机制，不是线程安全的。
+	 （2）HashMap的键值对允许有null，但是ConCurrentHashMap都不允许。
+	 
+线程
+
+		创建线程的方式及实现
+		
+		Java中创建线程主要有三种方式：
+		一、继承Thread类创建线程类
+
+	 （1）定义Thread类的子类，并重写该类的run方法，该run方法的方法体就代表了线程要完成的任务。因此把run()方法称为执行体。
+	 （2）创建Thread子类的实例，即创建了线程对象。
+	 （3）调用线程对象的start()方法来启动该线程。
+	 
+	  二、通过Runnable接口创建线程类
+
+	 （1）定义runnable接口的实现类，并重写该接口的run()方法，该run()方法的方法体同样是该线程的线程执行体。
+	 （2）创建 Runnable实现类的实例，并依此实例作为Thread的target来创建Thread对象，该Thread对象才是真正的线程对象。
+	 （3）调用线程对象的start()方法来启动该线程。
+	 
+	  三、通过Callable和Future创建线程
+	  
+	 （1）创建Callable接口的实现类，并实现call()方法，该call()方法将作为线程执行体，并且有返回值。
+	 （2）创建Callable实现类的实例，使用FutureTask类来包装Callable对象，该FutureTask对象封装了该Callable对象的call()方法的返回值。
+	 （3）使用FutureTask对象作为Thread对象的target创建并启动新线程。
+	 （4）调用FutureTask对象的get()方法来获得子线程执行结束后的返回值
+	 
+	 	创建线程的三种方式的对比
+
+	 	采用实现Runnable、Callable接口的方式创见多线程时，优势是：
+	 	
+		线程类只是实现了Runnable接口或Callable接口，还可以继承其他类。
+		在这种方式下，多个线程可以共享同一个target对象，所以非常适合多个相同线程来处理同一份资源的情况，
+		从而可以将CPU、代码和数据分开，形成清晰的模型，较好地体现了面向对象的思想。
+
+		劣势是：
+
+		编程稍微复杂，如果要访问当前线程，则必须使用Thread.currentThread()方法。
+		
+		使用继承Thread类的方式创建多线程时优势是：
+		
+		编写简单，如果需要访问当前线程，则无需使用Thread.currentThread()方法，直接使用this即可获得当前线程。
+
+		劣势是：
+
+		线程类已经继承了Thread类，所以不能再继承其他父类。
+		
+sleep() 、join（）、yield（）有什么区别
+
+		1、sleep()方法
+
+		在指定的毫秒数内让当前正在执行的线程休眠（暂停执行），此操作受到系统计时器和调度程序精度和准确性的影响。 
+		让其他线程有机会继续执行，但它并不释放对象锁。
+		也就是如果有Synchronized同步块，其他线程仍然不能访问共享数据。注意该方法要捕获异常。
+
+		比如有两个线程同时执行(没有Synchronized)，一个线程优先级为MAX_PRIORITY，另一个为MIN_PRIORITY，如果没有Sleep()方法，
+		只有高优先级的线程执行完成后，低优先级的线程才能执行；但当高优先级的线程sleep(5000)后，低优先级就有机会执行了。
+		总之，sleep()可以使低优先级的线程得到执行的机会，当然也可以让同优先级、高优先级的线程有执行的机会。
+
+		2、yield()方法
+
+		yield()方法和sleep()方法类似，也不会释放“锁标志”，
+		区别在于，它没有参数，即yield()方法只是使当前线程重新回到可执行状态，
+		所以执行yield()的线程有可能在进入到可执行状态后马上又被执行，
+		另外yield()方法只能使同优先级或者高优先级的线程得到执行机会，这也和sleep()方法不同。
+
+		3、join()方法
+
+		Thread的非静态方法join()让一个线程B“加入”到另外一个线程A的尾部。在A执行完毕之前，B不能工作。
+
+		Thread t = new MyThread(); t.start(); t.join();
+		保证当前线程停止执行，直到该线程所加入的线程完成为止。然而，如果它加入的线程没有存活，则当前线程不需要停止。
+		
+说说 CountDownLatch 原理
+
+		CountDownLatch是同步工具类之一，可以指定一个计数值，在并发环境下由线程进行减1操作，
+		当计数值变为0之后，被await方法阻塞的线程将会唤醒，实现线程间的同步。
+		
+		CountDownLatch是通过一个计数器来实现的，计数器的初始值为线程的数量。
+		每当一个线程完成了自己的任务后，计数器的值就会减1。
+		当计数器值到达0时，它表示所有的线程已经完成了任务，然后在闭锁上等待的线程就可以恢复执行任务。
+
+CountDownLatch如何工作
+
+		构造器中的计数值（count）实际上就是闭锁需要等待的线程数量。
+		这个值只能被设置一次，而且CountDownLatch没有提供任何机制去重新设置这个计数值。
+
+		与CountDownLatch的第一次交互是主线程等待其他线程。主线程必须在启动其他线程后立即调用CountDownLatch.await()方法。
+		这样主线程的操作就会在这个方法上阻塞，直到其他线程完成各自的任务。
+		其他N 个线程必须引用闭锁对象，因为他们需要通知CountDownLatch对象，他们已经完成了各自的任务。
+		这种通知机制是通过 CountDownLatch.countDown()方法来完成的；
+		每调用一次这个方法，在构造函数中初始化的count值就减1。
+		所以当N个线程都调 用了这个方法，count的值等于0，然后主线程就能通过await()方法，恢复执行自己的任务。
+		
+
+CountDownLatch在实时系统中的使用场景
+
+		让我们尝试罗列出在java实时系统中CountDownLatch都有哪些使用场景。
+	
+    实现最大的并行性：有时我们想同时启动多个线程，实现最大程度的并行性。
+    例如，我们想测试一个单例类。如果我们创建一个初始计数为1的CountDownLatch，并让所有线程都在这个锁上等待，
+    那么我们可以很轻松地完成测试。
+    我们只需调用一次countDown()方法就可以让所有的等待线程同时恢复执行。
+    
+    开始执行前等待n个线程完成各自任务：例如应用程序启动类要确保在处理用户请求前，所有N个外部系统已经启动和运行了。
+    
+    死锁检测：一个非常方便的使用场景是，你可以使用n个线程访问共享资源，在每次测试阶段的线程数目是不同的，并尝试产生死锁。
+    
+CountDownLatch和CyclicBarrier的理解和区别
+
+		CountDownLatch和CyclicBarrier都是java.util.concurrent包下面的多线程工具类。
+		CountDownLatch减计数，CyclicBarrier加计数。
+		CountDownLatch是一次性的，CyclicBarrier可以重用。
+		CountDownLatch强调的是一个线程（或多个）需要等待另外的n个线程干完某件事情之后才能继续执行。
+		CyclicBarrier强调的是多个线程互等。
+
+CyclicBarrier底层实现和原理
+
+		1.CyclicBarrier字面意思是可循环（Cyclic）使用的屏障（Barrier）。
+		它要做的事情是让一组线程到达一个屏障（同步点）时被阻塞，直到最后一个线程到达屏障时候，屏障才会开门。
+		所有被屏障拦截的线程才会运行。
+		
+		2.常用的方法：
+		CyclicBarrier(int parties)
+		创建一个新的 CyclicBarrier，它将在给定数量的参与者（线程）处于等待状态时启动，但它不会在启动 barrier时执行预定义的操作。
+
+		CyclicBarrier(int parties, Runnable barrierAction)
+		创建一个新的 CyclicBarrier，它将在给定数量的参与者（线程）处于等待状态时启动，
+		并在启动 barrier 时执行给定的屏障操作，该操作由最后一个进入 barrier 的线程执行。
+
+		int await()
+		在所有参与者都已经在此 barrier 上调用 await 方法之前，将一直等待。
+
+		int await(long timeout, TimeUnit unit)
+		在所有参与者都已经在此屏障上调用 await 方法之前将一直等待,或者超出了指定的等待时间。
+
+		int getNumberWaiting()
+		返回当前在屏障处等待的参与者数目。
+
+		int getParties()
+		返回要求启动此 barrier 的参与者数目。
+
+		boolean isBroken()
+		查询此屏障是否处于损坏状态。
+
+		void reset() 
+		将屏障重置为其初始状态。如果调用了该函数，则在等待的线程将会抛出BrokenBarrierException异常。
+
+		3.底层原理实现
+		CyclicBarrier是由ReentrantLock可重入锁和Condition共同实现的。
+		
+Semaphore 原理
+
+		Semaphore(信号量)，有时被称为信号灯，是在多线程环境下使用的一种设施, 
+		它负责协调各个线程, 以保证它们能够正确、合理的使用公共资源。 
+	
+		Semaphore分为单值和多值两种，前者只能被一个线程获得，后者可以被若干个线程获得。
+		在信号量上我们定义两种操作： Wait（等待） 和 Release（释放）
+	
+	Semaphore底层实现和原理
+	
+		1.控制并发线程数的Semaphore
+
+   	Semaphore（信号量）是用来控制同时访问特定资源的线程数量，它通过协调各个线程，保证合理的使用公共资源。
+	 	线程可以通过acquire()方法来获取信号量的许可，当信号量中没有可用的许可的时候，线程阻塞，直到有可用的许可为止。
+	 	线程可以通过release()方法释放它持有的信号量的许可。
+	 	
+	 	2."公平信号量"和"非公平信号量"的区别
+		"公平信号量"和"非公平信号量"的释放信号量的机制是一样的！
+		不同的是它们获取信号量的机制：线程在尝试获取信号量许可时，对于公平信号量而言，如果当前线程不在CLH队列的头部，
+		则排队等候；而对于非公平信号量而言，无论当前线程是不是在CLH队列的头部，它都会直接获取信号量。该差异具体的体现在，
+		它们的tryAcquireShared()函数的实现不同。
+		
+Exchanger原理
+
+    此类提供对外的操作是同步的；
+    用于成对出现的线程之间交换数据；
+    可以视作双向的同步队列；
+    可应用于基因算法、流水线设计等场景。
+
+ThreadLocal原理分析
+
+		1.ThreadLocal在每个线程中对该变量会创建一个副本，即每个线程内部都会有一个该变量，且在线程内部任何地方都可以使用，线程之间互不影响，
+		这样一来就不存在线程安全问题，也不会严重影响程序执行性能。
+
+　　但是要注意，虽然ThreadLocal能够解决上面说的问题，但是由于在每个线程中都创建了副本，所以要考虑它对资源的消耗，
+		比如内存的占用会比不使用ThreadLocal要大。
+		
+		2.1）实际的通过ThreadLocal创建的副本是存储在每个线程自己的threadLocals中的；
+　　	2）为何threadLocals的类型ThreadLocalMap的键值为ThreadLocal对象，因为每个线程中可有多个threadLocal变量，
+				 就像上面代码中的longLocal和stringLocal；
+　　	3）在进行get之前，必须先set，否则会报空指针异常；如果想在get之前不需要调用set就能正常访问的话，必须重写initialValue()方法。
+
+		3.ThreadLocal使用场景为 用来解决 数据库连接、Session管理
+
+讲讲线程池的实现原理，主要是ThreadPoolExecutor的实现原理
+		
+		java.uitl.concurrent.ThreadPoolExecutor类是线程池中最核心的一个类，
+		ThreadPoolExecutor继承了AbstractExecutorService类，并提供了四个构造器。
+		
+		构造器部分参数含义：
+		
+    workQueue：一个阻塞队列，用来存储等待执行的任务，这个参数的选择也很重要，
+    会对线程池的运行过程产生重大影响，一般来说，这里的阻塞队列有以下几种选择：
+		ArrayBlockingQueue;LinkedBlockingQueue;SynchronousQueue;
+　　ArrayBlockingQueue和PriorityBlockingQueue使用较少，一般使用LinkedBlockingQueue和Synchronous。
+		线程池的排队策略与BlockingQueue有关。
+
+    threadFactory：线程工厂，主要用来创建线程；
+    
+    handler：表示当拒绝处理任务时的策略，有以下四种取值：
+		ThreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException异常。 
+		ThreadPoolExecutor.DiscardPolicy：也是丢弃任务，但是不抛出异常。 
+		ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）
+		ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务 
+		
+		ThreadPoolExecutor继承了AbstractExecutorService
+		AbstractExecutorService是一个抽象类，它实现了ExecutorService接口
+		而ExecutorService又是继承了Executor接口
+		
+		Executor->ExecutorService->AbstractExecutorService->ThreadPoolExecutor
+		
+		Executor是一个顶层接口，在它里面只声明了一个方法execute(Runnable)，返回值为void，参数为Runnable类型，
+		从字面意思可以理解，就是用来执行传进去的任务的；
+　　然后ExecutorService接口继承了Executor接口，并声明了一些方法：submit、invokeAll、invokeAny以及shutDown等；
+　　抽象类AbstractExecutorService实现了ExecutorService接口，基本实现了ExecutorService中声明的所有方法；
+　　然后ThreadPoolExecutor继承了类AbstractExecutorService。
+
+	二.深入剖析线程池实现原理
+
+　　在上一节我们从宏观上介绍了ThreadPoolExecutor，下面我们来深入解析一下线程池的具体实现原理，将从下面几个方面讲解：
+
+　　1.线程池状态(RUNNING,SHUTDOWN,STOP,TERMINATED)
+　　2.任务的执行
+　　3.线程池中的线程初始化
+			默认情况下，创建线程池之后，线程池中是没有线程的，需要提交任务之后才会创建线程。
+　　	在实际中如果需要线程池创建之后立即创建线程，可以通过以下两个方法办到：
+    	prestartCoreThread()：初始化一个核心线程；
+    	prestartAllCoreThreads()：初始化所有核心线程
+　　4.任务缓存队列及排队策略
+			在前面我们多次提到了任务缓存队列，即workQueue，它用来存放等待执行的任务。
+　　	workQueue的类型为BlockingQueue<Runnable>，通常可以取下面三种类型：
+　　	1）ArrayBlockingQueue：基于数组的先进先出队列，此队列创建时必须指定大小；
+　	　2）LinkedBlockingQueue：基于链表的先进先出队列，如果创建时没有指定此队列大小，则默认为Integer.MAX_VALUE；
+　　	3）synchronousQueue：这个队列比较特殊，它不会保存提交的任务，而是将直接新建一个线程来执行新来的任务。
+　　5.任务拒绝策略
+			　当线程池的任务缓存队列已满并且线程池中的线程数目达到maximumPoolSize，
+				如果还有任务到来就会采取任务拒绝策略，通常有以下四种策略：
+				ThreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException异常。
+				ThreadPoolExecutor.DiscardPolicy：也是丢弃任务，但是不抛出异常。
+				ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）
+				ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务 
+　　6.线程池的关闭
+				ThreadPoolExecutor提供了两个方法，用于线程池的关闭，分别是shutdown()和shutdownNow()，其中：
+		    shutdown()：不会立即终止线程池，而是要等所有任务缓存队列中的任务都执行完后才终止，但再也不会接受新的任务
+		    shutdownNow()：立即终止线程池，并尝试打断正在执行的任务，并且清空任务缓存队列，返回尚未执行的任务
+
+　　7.线程池容量的动态调整
+				ThreadPoolExecutor提供了动态调整线程池容量大小的方法：setCorePoolSize()和setMaximumPoolSize()，
+    		setCorePoolSize：设置核心池大小
+    		setMaximumPoolSize：设置线程池最大能创建的线程数目大小
+
+
+		corePoolSize:在很多地方被翻译成核心池大小，其实我的理解这个就是线程池的大小
+		maximumPoolSize:在我看来是线程池的一种补救措施，即任务量突然过大时的一种补救措施
+		largestPoolSize:只是一个用来起记录作用的变量，用来记录线程池中曾经有过的最大线程数目，跟线程池的容量没有任何关系
+		
+		创建线程池的几种方式
+		
+		1.newFixedThreadPool(int nThreads)
+		创建一个固定长度的线程池，每当提交一个任务就创建一个线程，直到达到线程池的最大数量，这时线程规模将不再变化，
+		当线程发生未预期的错误而结束时，线程池会补充一个新的线程
+		2.newCachedThreadPool()
+		创建一个可缓存的线程池，如果线程池的规模超过了处理需求，将自动回收空闲线程，
+		而当需求增加时，则可以自动添加新线程，线程池的规模不存在任何限制
+		3.newSingleThreadExecutor()
+		这是一个单线程的Executor，它创建单个工作线程来执行任务，如果这个线程异常结束，会创建一个新的来替代它；
+		它的特点是能确保依照任务在队列中的顺序来串行执行
+		4.newScheduledThreadPool(int corePoolSize)
+		创建了一个固定长度的线程池，而且以延迟或定时的方式来执行任务，类似于Timer。
+		
+线程的生命周期
+
+	线程是一个动态执行的过程，它也有一个从产生到死亡的过程。
+	1）线程生命周期的五种状态
+		新建（new Thread）
+		当创建Thread类的一个实例（对象）时，此线程进入新建状态（未被启动）。
+		例如：Thread  t1=new Thread();
+		就绪（runnable）
+		线程已经被启动，正在等待被分配给CPU时间片，也就是说此时线程正在就绪队列中排队等候得到CPU资源。例如：t1.start();
+		运行（running）
+		线程获得CPU资源正在执行任务（run()方法），此时除非此线程自动放弃CPU资源或者有优先级更高的线程进入，线程将一直运行到结束。
+		死亡（dead）
+		当线程执行完毕或被其它线程杀死，线程就进入死亡状态，这时线程不可能再进入就绪状态等待执行。
+		自然终止：正常运行run()方法后终止
+		异常终止：调用stop()方法让一个线程终止运行
+		堵塞（blocked）
+		由于某种原因导致正在运行的线程让出CPU并暂停自己的执行，即进入堵塞状态。
+		正在睡眠：用sleep(long t) 方法可使线程进入睡眠方式。一个睡眠着的线程在指定的时间过去可进入就绪状态。
+		正在等待：调用wait()方法。（调用motify()方法回到就绪状态）
+		被另一个线程所阻塞：调用suspend()方法。（调用resume()方法恢复）
+	
+	2）线程的的主要方法
+		void run()   创建该类的子类时必须实现的方法
+		void start() 开启线程的方法
+		static void sleep(long t) 释放CPU的执行权，不释放锁
+		static void sleep(long millis,int nanos)
+		final void wait()释放CPU的执行权，释放锁
+		final void notify()
+		static void yied()可以对当前线程进行临时暂停（让线程将资源释放出来）
+		
+	3）.1结束线程原理：就是让run方法结束。而run方法中通常会定义循环结构，所以只要控制住循环即可
+			2方法----可以boolean标记的形式完成，只要在某一情况下将标记改变，让循环停止即可让线程结束
+			3public final void join()//让线程加入执行，执行某一线程join方法的线程会被冻结，等待某一线程执行结束，
+			该线程才会恢复到可运行状态
+	
+	4）临界资源：多个线程间共享的数据称为临界资源
+		（1）互斥锁
+		a.每个对象都对应于一个可称为“互斥锁”的标记，这个标记用来保证在任一时刻，只能有一个线程访问该对象。
+		b.Java对象默认是可以被多个线程共用的，只是在需要时才启动“互斥锁”机制，成为专用对象。
+		c.关键字synchronized用来与对象的互斥锁联系
+		d.当某个对象用synchronized修饰时，表明该对象已启动“互斥锁”机制，在任一时刻只能由一个线程访问，
+		即使该线程出现堵塞，该对象的被锁定状态也不会解除，其他线程任不能访问该对象。
+		
+锁机制
+
+		说说线程安全问题
+
+		线程安全是指要控制多个线程对某个资源的有序访问或修改，而在这些线程之间没有产生冲突。
+		在Java里，线程安全一般体现在两个方面：
+		1、多个thread对同一个java实例的访问（read和modify）不会相互干扰，它主要体现在关键字synchronized。
+		如ArrayList和Vector，HashMap和Hashtable（后者每个方法前都有synchronized关键字）。
+		如果你在interator一个List对象时，其它线程remove一个element，问题就出现了。
+		2、每个线程都有自己的字段，而不会在多个线程之间共享。
+		它主要体现在java.lang.ThreadLocal类，而没有Java关键字支持，如像static、transient那样。
+		
+核心篇
+
+	索引的使用技巧及注意事项
+		一.索引的作用：索引的目的在于提高查询效率，
+		可以类比字典，如果要查“mysql”这个单词，我们肯定需要定位到m字母，然后从下往下找到y字母，再找到剩下的sql
+		
+		二.索引的创建和删除
+		索引的类型：
+    UNIQUE(唯一索引)：不可以出现相同的值，可以有NULL值
+    INDEX(普通索引)：允许出现相同的索引内容
+    PROMARY KEY(主键索引)：不允许出现相同的值
+    fulltext index(全文索引)：可以针对值中的某个单词，但效率确实不敢恭维
+    组合索引：实质上是将多个字段建到一个索引里，列值的组合必须唯一
+    
+    三.索引的使用以及注意事项
+    索引虽然好处很多，但过多的使用索引可能带来相反的问题，索引也是有缺点的：
+    虽然索引大大提高了查询速度，同时却会降低更新表的速度；
+    建立索引会占用磁盘空间的索引文件。
+    使用索引的一些技巧：
+    1.索引不会包含有NULL的列
+    2.使用短索引
+    3.索引列排序
+    4.like语句操作
+    5.不要在列上进行运算
+    6.不使用NOT IN 、<>、！=操作，但<,<=，=，>,>=,BETWEEN,IN是可以用到索引的
+    7.索引要建立在经常进行select操作的字段上。
+    8.索引要建立在值比较唯一的字段上。
+    9.对于那些定义为text、image和bit数据类型的列不应该增加索引。因为这些列的数据量要么相当大，要么取值很少。
+    10.在where和join中出现的列需要建立索引。
+    11.where的查询条件里有不等号(where column != …),mysql将无法使用索引。
+    12.如果where字句的查询条件里使用了函数(如：where DAY(column)=…),mysql将无法使用索引。
+    13.在join操作中(需要从多个数据表提取数据时)，mysql只有在主键和外键的数据类型相同时才能使用索引，否则及时建立了索引也不会使用。
+    
+  sql优化的几种方法
+  	1.对查询进行优化，应尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。
+  	2.应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描。
+  	3.应尽量避免在 where 子句中使用!=或<>操作符，否则将引擎放弃使用索引而进行全表扫描。
+  	4.应尽量避免在 where 子句中使用 or 来连接条件，否则将导致引擎放弃使用索引而进行全表扫描。可用union all代替。
+  	5.in 和 not in 也要慎用，否则会导致全表扫描	
+		7.应尽量避免在 where 子句中对字段进行表达式操作，这将导致引擎放弃使用索引而进行全表扫描。
+		8.应尽量避免在where子句中对字段进行函数操作，这将导致引擎放弃使用索引而进行全表扫描。
+		12.很多时候用 exists 代替 in 是一个好的选择。
+		14.索引并不是越多越好，索引固然可以提高相应的 select 的效率，但同时也降低了 insert 及 update 的效率。
+		16.尽可能的使用 varchar 代替 char ，因为首先变长字段存储空间小，可以节省存储空间，	
+		其次对于查询来说，在一个相对较小的字段内搜索效率显然要高些。
+		17.任何地方都不要使用 select * from t ，用具体的字段列表代替“*”，不要返回用不到的任何字段。
+		18.避免频繁创建和删除临时表，以减少系统表资源的消耗。
+		21.如果使用到了临时表，在存储过程的最后务必将所有的临时表显式删除，先 truncate table ，然后 drop table。
+		25.尽量避免大事务操作，提高系统并发能力。
+		26.尽量避免向客户端返回大数据量，若数据量过大，应该考虑相应需求是否合理。 
+  	
+  
+  	
+
+
+				
+		
+		
+		
+		
+		
+		
+
+		
+		
+
+		
+
+		
+		
+		
+
+
+
+
+	
+
+	
+
+
+		
+		
+
+
+
+
+
+
+	
+
+	
+
+二、spring,spring mvc,spring boot,spring cloud
+
+
+
+三、数据库
+
+
+四、hibernate,mybaits
+
+
+五、消息中间件
