@@ -76,6 +76,10 @@ int Integer的区别
 		调用一个对象的方法；
 		生成动态代理。
 		反射最大的应用就是框架
+		
+什么是反射
+		
+		Java反射机制是在运行中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意方法和属性。
 
 Java反射的主要功能：
 
@@ -657,6 +661,27 @@ ThreadLocal原理分析
 
 二、spring,spring mvc,spring boot,spring cloud
 
+	什么是SpringMVC 
+		SpringMVC是spring的一个模块,基于MVC的一个框架,无需中间整合层来整合
+		
+	SpringMVC的工作原理
+		(1) 客户端发送请求到DispatcherServlet
+　　(2)DispatcherServlet查询HandlerMapping找到处理请求的Controller
+　　(3)Controller调用业务逻辑后,返回ModelAndView
+　　(4)DispatcherServlet查询ModelAndView,找到指定视图.
+　　(5)视图将结果返回到客户端
+
+	SpringMVC的执行流程
+		1、用户向服务器发送请求，请求被SpringMVC的前端控制器DispatcherServlet截获。
+		2、DispatcherServlet对请求的URL（统一资源定位符）进行解析，调用HandlerMapping获得该Handler配置的所有相关的对象，
+		   这些对象都会被封装到一个HandlerExecutionChain对象当中返回。
+		3、DispatcherServlet根据获得的Handler，选择一个合适的HandlerAdapter。
+			 HandlerAdapter会被用于处理多种Handler，调用Handler实际处理请求的方法。
+		4、提取请求中的模型数据，开始执行Handler(Controller)
+		5、Handler执行完成后，向DispatcherServlet返回一个ModelAndView对象，ModelAndView对象中应该包含视图名或视图模型。
+		6、根据返回的ModelAndView对象，选择一个合适的ViewResolver(视图解析器)返回给DispatcherServlet。
+		7、ViewResolver结合Model和View来渲染视图。
+		8、将视图渲染结果返回给客户端。
 
 
 三、数据库
